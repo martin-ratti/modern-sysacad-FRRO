@@ -1,26 +1,65 @@
-Este no es el proyecto original, solo agrega la compatibilidad multi-sucursal UTN y detección dinámica de facultad.
-Link al proyecto original: https://github.com/inakigarcia1/modern-sysacad
+# ModernSysacad
 
+Un Sysacad moderno, limpio y con modo oscuro.
 
-Este PR extiende ModernSysacad para que funcione en otras facultades regionales de UTN, no solo en FRT Tucumán.
+---
 
-Cambios realizados:
+## Características
+* 🌗 **Modo Oscuro**
+* 🎨 **Diseño Moderno**
+* ⚡ **Ligero**
 
-Manifests (manifest.chromium.json, manifest.firefox.json): se agregó https://servicios.fra.utn.edu.ar/* a los matches del content script y de web_accessible_resources. Esto permite que la extensión se ejecute también en el Sysacad de la Facultad Regional Avellaneda (FRA).
-content.js: se reemplazó el string hardcodeado "Facultad Regional Tucumán" por una detección dinámica del nombre de la facultad. La extensión extrae automáticamente el código regional del hostname (ej. fra, frt, frc) y lo mapea al nombre completo mediante un objeto regionalMap. Si la regional no está en el mapa, muestra el código como fallback.
-Cómo se probó:
+---
 
-Cargada como extensión sin empaquetar en Chrome
-Verificado su funcionamiento en https://servicios.fra.utn.edu.ar/Sysacad/loginAlumno.asp
-El nombre mostrado es "Facultad Regional Avellaneda" en lugar de "Tucumán"
-Los links relativos del menú laterar y el login resuelven correctamente bajo el subdirectorio /Sysacad/
-Compatibilidad hacia atrás:
+## Cómo instalarlo para desarrollo (Local)
 
-Sin cambios en style.css ni en la lógica de cálculo de promedios
-100% retrocompatible con FRT Tucumán — el regionalMap incluye 'frt': 'Tucumán'
+Si querés probar los últimos cambios o colaborar con el código, podés instalar la extensión localmente siguiendo estos pasos:
 
+### 1. Preparación del Manifiesto
+Como el repositorio soporta múltiples navegadores, lo primero que tenés que hacer tras clonar el proyecto es renombrar el archivo correspondiente a tu navegador:
 
-Para agregar otra sucursal en el futuro, solo hace falta:
+* **Si usás Chrome / Edge / Brave:** Renombrá `manifest.chrome.json` a `manifest.json`.
+* **Si usás Firefox:** Renombrá `manifest.firefox.json` a `manifest.json`.
 
-Agregar el dominio al array matches en ambos manifests
-Agregar la entrada en regionalMap en content.js
+---
+
+### 2. Cargar la extensión en el navegador
+
+#### En Google Chrome / Chromium (Edge, Brave, Opera, etc.):
+1. Abrí el navegador y navegá a `chrome://extensions/`.
+2. Activá el **"Modo de desarrollador"** (el switch que está arriba a la derecha).
+3. Hacé clic en el botón **"Cargar descomprimida"** (Load unpacked).
+4. Seleccioná la carpeta raíz de este proyecto.
+
+#### En Firefox:
+1. Abrí el navegador y navegá a `about:debugging`.
+2. Hacé clic en **"Este Firefox"** (This Firefox) en el menú lateral.
+3. Buscá el botón **"Cargar complemento temporal..."** (Load Temporary Add-on...).
+4. Seleccioná el archivo `manifest.json` que renombraste dentro de la carpeta del proyecto.
+
+¡Listo! Entrá al Sysacad de la FRT y vas a ver los cambios aplicados en tiempo real.
+
+---
+
+## Cómo colaborar (Pull Requests)
+
+Cualquier mejora en los estilos CSS o nuevas funcionalidades en JS son más que bienvenidas. El proyecto mantiene una sola rama principal (`main`) para ambos navegadores.
+
+1. Hacé un **Fork** de este repositorio.
+2. Creá una rama para tu modificación: `git checkout -b feature/MejoraVisual`.
+3. Realizá tus cambios en `style.css` o `content.js` (no modifiques los archivos `.json` a menos que sea necesario).
+4. Subí tus cambios: `git commit -m 'Agrega mejoras en la tabla de horarios'`.
+5. Hacé el push: `git push origin feature/MejoraVisual`.
+6. Abrí un **Pull Request** directo a la rama `main` de este repo.
+
+---
+
+## ☕ Apoyá el proyecto
+Este proyecto es 100% gratuito y de código abierto. Si te ahorró un dolor de cabeza (o de ojos), podés invitarme un cafecito para bancar el mantenimiento y las futuras actualizaciones:
+
+[![Cafecito](https://img.shields.io/badge/Invitame%20un-Cafecito-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://cafecito.app/inakigarcia)
+
+---
+
+## 📄 Licencia
+Este proyecto está bajo la Licencia MIT. Podés ver el archivo `LICENSE` para más detalles.
