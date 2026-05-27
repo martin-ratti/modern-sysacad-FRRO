@@ -1,12 +1,14 @@
 {
   "manifest_version": 3,
   "name": "ModernSysacad",
-  "version": "1.2",
+  "version": "1.2.1",
   "description": "Mejora la interfaz del sysacad.",
   "content_scripts": [
     {
       "matches": [
-        "https://sysacad.frt.utn.edu.ar/*"
+        "https://sysacad.frt.utn.edu.ar/*",
+        "https://servicios.fra.utn.edu.ar/*",
+        "https://sysacadweb.frgp.utn.edu.ar/*"
       ],
       "css": [
         "style.css"
@@ -22,7 +24,9 @@
         "icons/*"
       ],
       "matches": [
-        "https://sysacad.frt.utn.edu.ar/*"
+        "https://sysacad.frt.utn.edu.ar/*",
+        "https://servicios.fra.utn.edu.ar/*",
+        "https://sysacadweb.frgp.utn.edu.ar/*"
       ]
     }
   ],
