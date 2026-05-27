@@ -1,65 +1,112 @@
 # ModernSysacad
 
-Un Sysacad moderno, limpio y con modo oscuro.
+Una extensión de Chrome y Firefox que **moderniza el SYSACAD** de las Facultades Regionales de UTN. Diseño limpio, modo oscuro, y atajos visuales para que la información que importa esté siempre a un vistazo.
 
 ---
 
-## Características
-* 🌗 **Modo Oscuro**
-* 🎨 **Diseño Moderno**
-* ⚡ **Ligero**
+## Regionales soportadas
+
+| Regional | Dominio | Producto SYSACAD |
+|---|---|---|
+| **Tucumán (FRT)** | `sysacad.frt.utn.edu.ar` | SYSACAD ASP clásico |
+| **Resistencia (FRRe)** | `sysacadweb.frre.utn.edu.ar` | SYSACAD-WEB (Bootstrap 3) |
+
+Cada regional tiene su propio par de archivos (`*.js` + `*.css`) que el manifest solo inyecta en el dominio correspondiente. No hay riesgo de cross-contamination entre regionales: el código de FRT nunca corre en FRRe ni viceversa.
 
 ---
 
-## Cómo instalarlo para desarrollo (Local)
+## Features
 
-Si querés probar los últimos cambios o colaborar con el código, podés instalar la extensión localmente siguiendo estos pasos:
+### FRT (Tucumán)
+* 🌗 Modo oscuro
+* 🎨 Sidebar custom con íconos
+* 📊 Promedio académico (general + por año)
+* 📝 Promedios Con/Sin Aplazos en Exámenes (con conversión texto → número)
+* 📜 Decoración de páginas de certificados, inscripciones y avisos
 
-### 1. Preparación del Manifiesto
-Como el repositorio soporta múltiples navegadores, lo primero que tenés que hacer tras clonar el proyecto es renombrar el archivo correspondiente a tu navegador:
-
-* **Si usás Chrome / Edge / Brave:** Renombrá `manifest.chrome.json` a `manifest.json`.
-* **Si usás Firefox:** Renombrá `manifest.firefox.json` a `manifest.json`.
-
----
-
-### 2. Cargar la extensión en el navegador
-
-#### En Google Chrome / Chromium (Edge, Brave, Opera, etc.):
-1. Abrí el navegador y navegá a `chrome://extensions/`.
-2. Activá el **"Modo de desarrollador"** (el switch que está arriba a la derecha).
-3. Hacé clic en el botón **"Cargar descomprimida"** (Load unpacked).
-4. Seleccioná la carpeta raíz de este proyecto.
-
-#### En Firefox:
-1. Abrí el navegador y navegá a `about:debugging`.
-2. Hacé clic en **"Este Firefox"** (This Firefox) en el menú lateral.
-3. Buscá el botón **"Cargar complemento temporal..."** (Load Temporary Add-on...).
-4. Seleccioná el archivo `manifest.json` que renombraste dentro de la carpeta del proyecto.
-
-¡Listo! Entrá al Sysacad de la FRT y vas a ver los cambios aplicados en tiempo real.
+### FRRe (Resistencia)
+* 🌗 Modo oscuro con transición **View Transitions API** (radial reveal desde el click)
+* ✨ Animaciones de count-up, stagger entrance, fade-in, pulse y wobble
+* 🎓 **Login rediseñado**: toggle Alumno/Docente con sliding indicator (estilo iOS), logo UTN moderno
+* 📊 **Estado Académico**: banner de promedio + stat cards (Aprobadas / Cursando / Equivalencias) + barra de progreso de carrera + grilla de promedios por año (★ marca el mejor)
+* 📝 **Exámenes**: promedios Con/Sin Aplazos, stat cards (Total / Aprobados / Aplazos), notas coloreadas
+* 📅 **Grilla semanal de horarios** en Materias Actuales: parsea la columna Horarios y arma una vista timetable Lun–Sáb con bloques de colores por materia
+* 🔍 **Buscador** en tablas grandes — insensible a acentos y multi-token (`"fisica"` matchea `"Física"`)
+* ✓ Checks Si/No en Materias del Plan
+* 🟢🟡 Status dots en Estado Académico (Aprobada / Cursando / Equivalencia)
+* ℹ️ FAB de créditos con info de la versión
 
 ---
 
-## Cómo colaborar (Pull Requests)
+## Instalación local (desarrollo)
 
-Cualquier mejora en los estilos CSS o nuevas funcionalidades en JS son más que bienvenidas. El proyecto mantiene una sola rama principal (`main`) para ambos navegadores.
+### 1. Manifest
 
-1. Hacé un **Fork** de este repositorio.
-2. Creá una rama para tu modificación: `git checkout -b feature/MejoraVisual`.
-3. Realizá tus cambios en `style.css` o `content.js` (no modifiques los archivos `.json` a menos que sea necesario).
-4. Subí tus cambios: `git commit -m 'Agrega mejoras en la tabla de horarios'`.
-5. Hacé el push: `git push origin feature/MejoraVisual`.
-6. Abrí un **Pull Request** directo a la rama `main` de este repo.
+El repo tiene un manifest por navegador. **Copialo** (no lo renombres) como `manifest.json`:
+
+* **Chrome / Edge / Brave / Opera**: copiá `manifest.chromium.json` → `manifest.json`
+* **Firefox**: copiá `manifest.firefox.json` → `manifest.json`
+
+> `manifest.json` está en `.gitignore` y no se commitea — es un archivo local de desarrollo. La fuente de verdad son `manifest.chromium.json` y `manifest.firefox.json`.
+
+### 2. Cargar la extensión
+
+**Chrome / Chromium:**
+1. Andá a `chrome://extensions/`
+2. Activá el **"Modo de desarrollador"** (switch arriba a la derecha)
+3. Clickeá **"Cargar descomprimida"** y seleccioná la carpeta raíz del proyecto
+
+**Firefox:**
+1. Andá a `about:debugging` → **"Este Firefox"**
+2. Clickeá **"Cargar complemento temporal..."** y seleccioná `manifest.json`
+
+Listo. Entrá al SYSACAD de tu regional y vas a ver los cambios.
+
+---
+
+## Colaborar
+
+Cualquier mejora de UI, nuevas features o adaptaciones a nuevas regionales son bienvenidas. El proyecto mantiene una sola rama principal (`main`).
+
+### Agregar una nueva regional
+
+1. Agregá una entrada en `content_scripts` y `web_accessible_resources` de ambos manifests apuntando al dominio de tu regional.
+2. Creá `<regional>.js` y `<regional>.css` con tu lógica y estilos.
+3. Tu código se ejecutará automáticamente solo en tu dominio gracias al `matches` del manifest.
+
+### Mejorar una regional existente
+
+1. Editá el `.js` y `.css` correspondiente (`content.js` + `style.css` para FRT, `frre.js` + `frre.css` para FRRe).
+2. No tocar los archivos de otras regionales.
+
+### Pull request
+
+1. Hacé un **fork** del repo.
+2. Creá una rama: `git checkout -b feature/mi-mejora`.
+3. Commit y push a tu fork.
+4. Abrí un PR contra `main`.
+
+---
+
+## Colaboradores
+
+**FRT (Tucumán)** — autor original: [Iñaki García](https://github.com/inakigarcia1) y la [comunidad](https://github.com/inakigarcia1/modern-sysacad/graphs/contributors)
+
+**FRRe (Resistencia)**:
+* Tomás Kobluk
+* Gonzalo Fidanza
+* Lorenzo Arduino
 
 ---
 
 ## ☕ Apoyá el proyecto
-Este proyecto es 100% gratuito y de código abierto. Si te ahorró un dolor de cabeza (o de ojos), podés invitarme un cafecito para bancar el mantenimiento y las futuras actualizaciones:
+
+Este proyecto es 100% gratuito y de código abierto. Si te ahorró un dolor de cabeza (o de ojos), podés invitarle un cafecito al autor original:
 
 [![Cafecito](https://img.shields.io/badge/Invitame%20un-Cafecito-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://cafecito.app/inakigarcia)
 
 ---
 
 ## 📄 Licencia
-Este proyecto está bajo la Licencia MIT. Podés ver el archivo `LICENSE` para más detalles.
+
+Este proyecto está bajo la Licencia MIT. Ver `LICENSE` para más detalles.
