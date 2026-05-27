@@ -5,34 +5,43 @@ const isErrorPage = document.querySelector('.textoError') !== null;
 const isRoot = path === '/' || path.endsWith('default.asp');
 const isLogin = href.includes('loginalumno.asp') || isRoot || (isMenuAlumno && isErrorPage);
 
-const regionalMap = {
-    'fra': 'Avellaneda',
-    'frba': 'Bahía Blanca',
-    'frb': 'Buenos Aires',
-    'frcon': 'Concordia',
-    'frc': 'Córdoba',
-    'frcu': 'Cuyo',
-    'frgp': 'General Pacheco',
-    'frh': 'Haedo',
-    'frl': 'La Rioja',
-    'frlp': 'La Plata',
-    'frm': 'Mendoza',
-    'frn': 'Neuquén',
-    'frp': 'Paraná',
-    'frr': 'Resistencia',
-    'frre': 'Reconquista',
-    'frro': 'Rosario',
-    'frsa': 'Salta',
-    'frsan': 'San Nicolás',
-    'frs': 'Santa Fe',
-    'frsc': 'San Francisco',
-    'frt': 'Tucumán',
-    'frvm': 'Villa María',
-};
+// Mapa inmutable de códigos regionales a nombres
+const regionalMap = Object.freeze({
+    fra: 'Avellaneda',
+    frba: 'Bahía Blanca',
+    frb: 'Buenos Aires',
+    frcon: 'Concordia',
+    frc: 'Córdoba',
+    frcu: 'Cuyo',
+    frgp: 'General Pacheco',
+    frh: 'Haedo',
+    frl: 'La Rioja',
+    frlp: 'La Plata',
+    frm: 'Mendoza',
+    frn: 'Neuquén',
+    frp: 'Paraná',
+    frr: 'Resistencia',
+    frre: 'Reconquista',
+    frro: 'Rosario',
+    frsa: 'Salta',
+    frsan: 'San Nicolás',
+    frs: 'Santa Fe',
+    frsc: 'San Francisco',
+    frt: 'Tucumán',
+    frvm: 'Villa María',
+});
 
-const getRegionalName = () => {
-    const match = window.location.hostname.match(/fr[a-z]+/);
-    return (match && regionalMap[match[0]]) || match?.[0]?.toUpperCase() || '';
+/**
+ * Obtiene el nombre de la regional a partir del hostname.
+ * @param {string} [hostname=window.location.hostname] - Hostname a analizar.
+ * @returns {string} Nombre de la regional o el código en mayúsculas si no está en el mapa.
+ */
+const getRegionalName = (hostname = window.location.hostname) => {
+    const match = hostname.toLowerCase().match(/fr[a-z]+/);
+    if (match && match[0]) {
+        return regionalMap[match[0]] || match[0].toUpperCase();
+    }
+    return '';
 };
 
 const regionalName = getRegionalName();
