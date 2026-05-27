@@ -8,3 +8,8 @@ manifest.json
 
 # Archivos de muestra de DOM para desarrollo (HTML/CSS scrapeados localmente).
 dev-samples/
+
+# Configs de editor (cada uno con la suya)
+.vscode/
+.idea/
+
