@@ -13,10 +13,12 @@ Un Sysacad moderno, limpio y con modo oscuro.
 
 ## Regionales soportadas
 
-* **FRT** (Tucumán) — `sysacad.frt.utn.edu.ar`
+* **FRT** (Tucumán) — `sysacad.frt.utn.edu.ar` (repositorio original, por Iñaki García)
 * **FRRe** (Resistencia) — `sysacadweb.frre.utn.edu.ar` *(adaptación por Tomás Kobluk, Gonzalo Fidanza y Lorenzo Arduino)*
+* **FRA** (Avellaneda) - `servicios.fra.utn.edu.ar` *(adaptación por Ignacio Natanael Núñez y Facundo Falcone)*
+* **FRGP** (General Pacheco) - `sysacadweb.frgp.utn.edu.ar` *(adaptación por Facundo Falcone)*
 
-Cada regional usa sus propios archivos (`content.js`/`style.css` para FRT, `frre.js`/`frre.css` para FRRe) y el manifest los inyecta sólo en el dominio correspondiente.
+Cada regional usa sus propios archivos (`content.js`/`style.css` para FRT, FRA, FRGP y `frre.js`/`frre.css` para FRRe) y el manifest los inyecta sólo en el dominio correspondiente.
 
 ---
 
