@@ -11,13 +11,16 @@ Un Sysacad moderno, limpio y con modo oscuro.
 
 ---
 
-## ¡Ya disponible en Chrome y Firefox!
+## ¡Ya disponible en Chrome, Edge y Firefox!
 
 ### 🌐 Chrome Web Store
 https://chromewebstore.google.com/detail/mabcfjnfkmedahekjndbbbnmmlodeccm?utm_source=item-share-cb
 
 ### 🦊 Firefox Add-ons
 https://addons.mozilla.org/es-AR/firefox/addon/modernsysacad/
+
+### 🧩 Microsoft Edge
+Disponible para carga local en Microsoft Edge usando `manifest.edge.json`.
 
  Compatible con navegadores:
 **Chrome · Edge · Brave · Opera · Vivaldi y Firefox** 
@@ -40,17 +43,24 @@ Si querés probar los últimos cambios o colaborar con el código, podés instal
 ### 1. Preparación del Manifiesto
 Como el repositorio soporta múltiples navegadores, lo primero que tenés que hacer tras clonar el proyecto es renombrar el archivo correspondiente a tu navegador:
 
-* **Si usás Chrome / Edge / Brave:** Renombrá `manifest.chrome.json` a `manifest.json`.
-* **Si usás Firefox:** Renombrá `manifest.firefox.json` a `manifest.json`.
+* **Si usás Chrome / Brave / Opera / Vivaldi:** Copiá `manifest.chromium.json` como `manifest.json`.
+* **Si usás Microsoft Edge:** Copiá `manifest.edge.json` como `manifest.json`.
+* **Si usás Firefox:** Copiá `manifest.firefox.json` como `manifest.json`.
 
 ---
 
 ### 2. Cargar la extensión en el navegador
 
-#### En Google Chrome / Chromium (Edge, Brave, Opera, etc.):
+#### En Google Chrome / Chromium (Brave, Opera, Vivaldi, etc.):
 1. Abrí el navegador y navegá a `chrome://extensions/`.
 2. Activá el **"Modo de desarrollador"** (el switch que está arriba a la derecha).
 3. Hacé clic en el botón **"Cargar descomprimida"** (Load unpacked).
+4. Seleccioná la carpeta raíz de este proyecto.
+
+#### En Microsoft Edge:
+1. Abrí Edge y navegá a `edge://extensions/`.
+2. Activá el **"Modo de desarrollador"** desde el menú lateral.
+3. Hacé clic en **"Cargar desempaquetado"** (Load unpacked).
 4. Seleccioná la carpeta raíz de este proyecto.
 
 #### En Firefox:
@@ -74,6 +84,30 @@ Cualquier mejora en los estilos CSS o nuevas funcionalidades en JS son más que 
 4. Subí tus cambios: `git commit -m 'Agrega mejoras en la tabla de horarios'`.
 5. Hacé el push: `git push origin feature/MejoraVisual`.
 6. Abrí un **Pull Request** directo a la rama `main` de este repo.
+
+---
+
+## Cómo publicar en Microsoft Edge Add-ons
+
+Para subir la extensión a Microsoft Edge Add-ons, generá el paquete publicable con:
+
+```powershell
+.\scripts\package-edge.ps1
+```
+
+El script crea un archivo `.zip` en `dist/` con `manifest.edge.json` copiado como `manifest.json`, que es el formato que espera Partner Center.
+
+Después ingresá al dashboard de Microsoft Edge Add-ons, creá una nueva extensión y subí el `.zip` generado:
+
+https://developer.microsoft.com/en-us/microsoft-edge/extensions
+
+Notas sugeridas para la revisión:
+
+> ModernSysacad modifica visualmente la interfaz de SYSACAD en dominios específicos de UTN. No recopila, almacena ni transmite datos personales. La extensión no usa servidores externos, analítica, tracking ni publicidad.
+
+La política de privacidad del proyecto está en `PRIVACY.md`.
+
+También hay una guía con textos sugeridos para la ficha de la tienda en `EDGE_SUBMISSION.md`.
 
 ---
 
